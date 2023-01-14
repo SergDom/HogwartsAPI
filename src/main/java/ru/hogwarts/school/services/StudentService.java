@@ -26,7 +26,7 @@ public class StudentService {
         return students.get(id);
     }
 
-    public Student update(long id, Student student) {
+    public Student update(Student student) {
         if (students.containsKey(student.getId())) {
             students.put(student.getId(), student);
             return student;
