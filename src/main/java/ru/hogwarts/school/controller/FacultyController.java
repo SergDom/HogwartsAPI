@@ -56,10 +56,22 @@ public class FacultyController {
         }
     }
 
-
     @GetMapping("/color/{color}")
     public List<Faculty> colorFilter(@PathVariable String color) {
 
         return facultyService.colorFilter(color);
     }
+
+    @GetMapping("/name-color")
+    public ResponseEntity<Faculty> findFacultyByNameOrColor( @RequestParam (required = false) String name,
+                                                            @RequestParam (required = false) String color) {
+        return ResponseEntity.ok(facultyService.findByNameOrColor(name, color));
+    }
+    @GetMapping ("facultyIdNumber/{id}")
+    public ResponseEntity <Faculty> getFacultyId (@PathVariable long id) {
+        Faculty faculty = facultyService.getFacultyByStudentId(id);
+        if (faculty == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+        return ResponseEntity.ok(faculty); }
 }
