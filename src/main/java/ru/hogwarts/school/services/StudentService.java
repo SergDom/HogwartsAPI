@@ -24,7 +24,7 @@ private final StudentRepository studentRepository;
 
     public Student get(long id) {
 
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(id).orElse(null);
     }
 
     public Student update(Student student) {
