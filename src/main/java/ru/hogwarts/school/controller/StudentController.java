@@ -77,4 +77,17 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok(student); }
+
+    @GetMapping ("/count-Students")
+    public  ResponseEntity<Integer> getStudentsCount () {
+        return  ResponseEntity.ok(studentService.getStudentCount());
+    }
+    @GetMapping("/students-average-age")
+    public ResponseEntity<Double> getAverageStudentsAge () {
+        return ResponseEntity.ok(studentService.getAverageStudentAge());
+    }
+    @GetMapping("/last-five-students")
+    public ResponseEntity <List<Student>> getLastFiveStudentsList(){
+        return ResponseEntity.ok(studentService.getLastFiveStudents());
+    }
 }

@@ -99,14 +99,14 @@ public class WebApplicationStudentTest {
         faculty.setId(2L);
         faculty.setName("whateverFaculty");
         faculty.setColor("green");
-        restTemplate.put("http://localhost:" + port + "/faculty", faculty, String.class);
+        restTemplate.postForObject("http://localhost:" + port + "/faculty", faculty, String.class);
 
         Student student = new Student();
         student.setId(1L);
         student.setName("Ivan");
         student.setAge(23);
         studentController.getStudentsFromFaculty(faculty.getId());
-        restTemplate.put("http://localhost:" + port + "/student", student, String.class);
+        restTemplate.postForObject("http://localhost:" + port + "/student", student, String.class);
 
         Assertions
                 .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student/faculty/1", String.class))

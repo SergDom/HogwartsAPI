@@ -54,6 +54,7 @@ public class WebApplicationFacultyTest {
 
         when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
         when(facultyRepository.findById(eq(id))).thenReturn(Optional.of(faculty));
+        when(facultyRepository.existsById(eq(id))).thenReturn(true);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/faculty")
@@ -94,11 +95,10 @@ public class WebApplicationFacultyTest {
                 .andExpect(status().isOk());
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/faculty/name-color")
+                        .get("/faculty/name-color/")
                         .content(facultyObject.toString())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/faculty/facultyIdNumber/" + id)
@@ -106,7 +106,8 @@ public class WebApplicationFacultyTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
+
     }
-
-
 }
+
+
