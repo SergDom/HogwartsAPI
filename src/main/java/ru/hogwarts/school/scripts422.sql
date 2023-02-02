@@ -1,0 +1,17 @@
+CREATE TABLE People
+(
+id SERIAL PRIMARY KEY,
+name TEXT NOT NULL,
+age INTEGER NOT NULL,
+license BOOLEAN,
+Car_id INTEGER REFERENCES Car (id)
+
+);
+
+CREATE TABLE Car
+(
+  id SERIAL PRIMARY KEY,
+  brand TEXT NOT NULL,
+  model TEXT NOT NULL,
+  price INTEGER NOT NULL
+);
