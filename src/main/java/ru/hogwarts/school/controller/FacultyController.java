@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.services.FacultyService;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -56,10 +57,20 @@ public class FacultyController {
         }
     }
 
-
     @GetMapping("/color/{color}")
     public List<Faculty> colorFilter(@PathVariable String color) {
 
         return facultyService.colorFilter(color);
     }
+
+    @GetMapping("/name-color")
+    public ResponseEntity<Collection<Faculty>> findFacultyByNameOrColor(@RequestParam (required = false) String name,
+                                                                        @RequestParam (required = false) String color) {
+        return ResponseEntity.ok(facultyService.findByNameOrColor(name, color));
+    }
+    @GetMapping ("facultyIdNumber/{id}")
+    public ResponseEntity <Collection<Faculty>>  getFacultyId (@PathVariable long id) {
+        return ResponseEntity.ok(facultyService.getFacultyByStudentId(id));
+    }
+
 }
