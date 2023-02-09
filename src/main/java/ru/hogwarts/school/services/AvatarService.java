@@ -1,5 +1,7 @@
 package ru.hogwarts.school.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +27,7 @@ public class AvatarService {
 
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
+    private static final Logger logger = LoggerFactory.getLogger(AvatarService.class);
 
     public AvatarService(StudentService studentService, AvatarRepository avatarRepository) {
         this.studentService = studentService;
@@ -32,6 +35,8 @@ public class AvatarService {
     }
 
     public void uploadAvatar(Long studentId, MultipartFile file) throws IOException {
+        logger.error("There is on directory to save avatar");
+        logger.info("Was invoked method for save avatar into database");
         Student student = studentService.get(studentId);
 
         Path filePath = Path.of(avatarDir, student + "." + getExtension(file.getOriginalFilename()));
@@ -59,10 +64,12 @@ public class AvatarService {
     }
 
     public Avatar findAvatar(long studentId) {
+        logger.info("Was invoked method for find avatar by id");
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
 
     public Page<Avatar> getListOfAvatars(Integer pageNumber, Integer pageLimit) {
+        logger.info("Was invoked method to get list of avatars on page");
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageLimit);
         return avatarRepository.findAll(pageRequest);
     }
