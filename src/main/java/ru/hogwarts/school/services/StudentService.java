@@ -10,7 +10,7 @@ import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 
 @Service
@@ -66,11 +66,24 @@ public class StudentService {
 
     public Double getAverageStudentAge() {
         logger.info("Was invoked method to get average age all students");
-        return studentRepository.getAverageStudentAge();
+        return studentRepository.findAll().stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElseThrow();
     }
 
     public List<Student> getLastFiveStudents() {
         logger.info("Was invoked method to get last five students in database");
         return studentRepository.getLastFiveStudents();
+    }
+
+    public List <String> getNamesStudentsBeginsWithA () {
+        logger.info("Was invoked method to get list of students with names begins 'A'");
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .sorted()
+                .filter(e->e.charAt(0) == 'А' || e.charAt(0) == 'а')
+                .map(String::toUpperCase)
+                .toList();
     }
 }
