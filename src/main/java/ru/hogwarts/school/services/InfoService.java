@@ -5,5 +5,5 @@ public interface InfoService {
 
     Integer portNumber ();
 
-    Integer getValue ();
+    Long getValue ();
 }

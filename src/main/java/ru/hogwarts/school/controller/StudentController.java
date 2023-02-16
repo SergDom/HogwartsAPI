@@ -96,4 +96,17 @@ public class StudentController {
     public ResponseEntity <List<String>> getListOfStudentsWithNameBeginsA (){
         return ResponseEntity.ok(studentService.getNamesStudentsBeginsWithA());
     }
+
+    @GetMapping("/list-students-treads")
+    public ResponseEntity<String> getListOfNamesThread(){
+        studentService.getThreadList();
+    return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/list-students-treads-sync")
+    public ResponseEntity<String> getListOfNamesThreadSync(){
+        studentService.getThreadListSync();
+        return ResponseEntity.ok().build();
+    }
+
 }

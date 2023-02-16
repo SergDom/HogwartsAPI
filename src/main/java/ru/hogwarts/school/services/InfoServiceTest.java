@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 @Service
 @Profile("!production")
@@ -20,11 +21,11 @@ public class InfoServiceTest implements InfoService{
     }
 
     @Override
-    public Integer getValue() {
+    public Long getValue() {
         logger.info("Was invoked method to find sum");
-        return IntStream.iterate(1, a -> a + 1)
+        return LongStream.iterate(1, a -> a + 1)
                 .limit(1_000_000)
                 .parallel()
-                .reduce(0, Integer::sum);
+                .reduce(0, Long::sum);
     }
 }

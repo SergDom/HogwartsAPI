@@ -27,7 +27,7 @@ public class InfoController  {
     }
 
     @GetMapping ("/getValue")
-    public ResponseEntity <Integer> getValue() {
+    public ResponseEntity <Long> getValue() {
         return ResponseEntity.ok(infoService.getValue());
     }
 }
