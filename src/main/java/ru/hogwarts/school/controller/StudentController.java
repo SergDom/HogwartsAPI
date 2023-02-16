@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.services.StudentService;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -61,4 +62,51 @@ public class StudentController {
     public List<Student> ageFilter(@PathVariable int age) {
         return studentService.ageFilter(age);
     }
+
+
+    @GetMapping("/age-between")
+    public ResponseEntity<Collection<Student>> findStudentByAgeBetween (@RequestParam int min,
+                                                                        @RequestParam int max) {
+        return ResponseEntity.ok(studentService.findByAgeBetween(min, max));
+    }
+
+    @GetMapping ("requestfromfaculty/{id}")
+    public ResponseEntity <Collection<Student>> getStudentsFromFaculty (@PathVariable long id) {
+        Collection<Student> student = studentService.getStudentsFromTheFaculty(id);
+        if (student.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(student); }
+
+    @GetMapping ("/count-Students")
+    public  ResponseEntity<Integer> getStudentsCount () {
+        return  ResponseEntity.ok(studentService.getStudentCount());
+    }
+    @GetMapping("/students-average-age")
+    public ResponseEntity<Double> getAverageStudentsAge () {
+        return ResponseEntity.ok(studentService.getAverageStudentAge());
+    }
+    @GetMapping("/last-five-students")
+    public ResponseEntity <List<Student>> getLastFiveStudentsList(){
+        return ResponseEntity.ok(studentService.getLastFiveStudents());
+
+    }
+
+    @GetMapping ("/name-begins-with-A")
+    public ResponseEntity <List<String>> getListOfStudentsWithNameBeginsA (){
+        return ResponseEntity.ok(studentService.getNamesStudentsBeginsWithA());
+    }
+
+    @GetMapping("/list-students-treads")
+    public ResponseEntity<String> getListOfNamesThread(){
+        studentService.getThreadList();
+    return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/list-students-treads-sync")
+    public ResponseEntity<String> getListOfNamesThreadSync(){
+        studentService.getThreadListSync();
+        return ResponseEntity.ok().build();
+    }
+
 }
