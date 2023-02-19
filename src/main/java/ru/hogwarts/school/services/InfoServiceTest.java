@@ -23,9 +23,14 @@ public class InfoServiceTest implements InfoService{
     @Override
     public Long getValue() {
         logger.info("Was invoked method to find sum");
-        return LongStream.iterate(1, a -> a + 1)
-                .limit(1_000_000)
-                .parallel()
-                .reduce(0, Long::sum);
+        long start = System.currentTimeMillis();
+        long num = 1_000_000;
+        long sum = LongStream
+                .range(1, num + 1)
+                .sum();
+        long finish = System.currentTimeMillis();
+        long elapsedTime = finish - start;
+        logger.info("Time spent, ms: " + elapsedTime);
+        return sum;
     }
 }

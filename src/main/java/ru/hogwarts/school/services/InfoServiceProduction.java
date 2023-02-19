@@ -37,11 +37,10 @@ public class InfoServiceProduction implements InfoService {
 //                .mapToInt(Integer::intValue)
 //                .sum();
 
-        long num = 1_000_000;
 //        int sum = IntStream
 //                .range(1, num + 1)
 //                .sum();
-
+        long num = 1_000_000;
         long sum = ((1 + num) * num) / 2;
         long finish = System.currentTimeMillis();
         long elapsedTime = finish - start;
